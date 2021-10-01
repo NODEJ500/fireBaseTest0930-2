@@ -10,9 +10,9 @@ import Firebase
 
 class ViewController: UIViewController {
 
-    
-    
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var pass: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
