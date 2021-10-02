@@ -12,8 +12,7 @@ import FirebaseAuth
 class ViewController: UIViewController {
 
     @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var pass: UITextField!
+    @IBOutlet weak var signInButton: UIView!
     
     var changed: AuthStateDidChangeListenerHandle?
     
@@ -42,8 +41,8 @@ class ViewController: UIViewController {
         let password = self.pass.text
         Auth.auth().signIn(withEmail: email ?? "", password: password ?? "") {
             (user, error) in
-            if error != nil {
-                self.label.text = error?.localizedDescription
+            if let error = error {
+                self.label.text = error.localizedDescription
                 return
             }
         }

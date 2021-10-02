@@ -106,6 +106,7 @@
 				BFD1A41D2705D40F0046FFAC /* Frameworks */,
 				BFD1A41E2705D40F0046FFAC /* Resources */,
 				D1FDACDCAE9FF6E94A3A1E60 /* [CP] Embed Pods Frameworks */,
+				1D1C265B1CDC6F23EACA88D0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -164,6 +165,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1D1C265B1CDC6F23EACA88D0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-fireBaseTest0930-2/Pods-fireBaseTest0930-2-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-fireBaseTest0930-2/Pods-fireBaseTest0930-2-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-fireBaseTest0930-2/Pods-fireBaseTest0930-2-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9669A3822FC3DE703B5E0063 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

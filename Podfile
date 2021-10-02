@@ -6,6 +6,7 @@ target 'fireBaseTest0930-2' do
   use_frameworks!
  pod 'Firebase/Core'
  pod 'Firebase/Auth'
+ pod 'GoogleSignIn','< 5.0.0'
   # Pods for fireBaseTest0930-2
 
 end
