@@ -41,15 +41,10 @@ class ViewController: UIViewController {
     }
   }
     @IBAction func doAction(_ sender: Any) {
-        
-        var nm:String? = self.name.text
-        var ml:String? = self.mail.text
-        var ag:Int? = Int(self.age.text ?? "0")
-        var data = [ "name":nm, "mail":ml, "age":ag ] as [String : Any]
-        var newRf = self.people.childByAutoId()
-        newRf.setValue(data)
-        self.name.text = ""
-        self.mail.text = ""
-        self.age.text = ""
+        if let id:String = self.name.text {
+            let rf = self.people.child(id)
+            rf.removeValue()
+            self.name.text = ""
+        }
     }
 }
