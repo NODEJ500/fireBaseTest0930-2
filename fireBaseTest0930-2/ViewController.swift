@@ -7,46 +7,24 @@
 
 import UIKit
 import Firebase
-import FirebaseAuth
+
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var signInButton: UIView!
+  
+    @IBOutlet weak var msg: UITextField!
     
-    var changed: AuthStateDidChangeListenerHandle?
+    var ref: DatabaseReference!
     
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        label.text = "emial & pass."
-        pass.isSecureTextEntry = true
+        ref = Database.database().reference()
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        changed = Auth.auth().addStateDidChangeListener {
-                 (auth, user) in
-            self.label.text = user?.email
-        }
-    }
-   
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        Auth.auth().removeStateDidChangeListener(changed!)
-    }
-    
     @IBAction func doAction(_ sender: Any) {
-        
-        let email = self.email.text
-        let password = self.pass.text
-        Auth.auth().signIn(withEmail: email ?? "", password: password ?? "") {
-            (user, error) in
-            if let error = error {
-                self.label.text = error.localizedDescription
-                return
-            }
-        }
+        var msg = self.msg.text
+        ref.child("massage").setValue(msg)
     }
-    
 }
 

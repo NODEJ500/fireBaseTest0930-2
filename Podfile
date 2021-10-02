@@ -7,6 +7,7 @@ target 'fireBaseTest0930-2' do
  pod 'Firebase/Core'
  pod 'Firebase/Auth'
  pod 'GoogleSignIn','< 5.0.0'
+ pod 'Firebase/Database'
   # Pods for fireBaseTest0930-2
 
 end
