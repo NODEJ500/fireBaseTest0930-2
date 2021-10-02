@@ -6,20 +6,24 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseDatabase
 
 
 class ViewController: UIViewController {
 
    
-    @IBOutlet weak var data: UITextView!
-    var ref: DatabaseReference!
+    @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var mail: UITextField!
+    @IBOutlet weak var age: UITextField!
     
-   
+    var ref: DatabaseReference!
+    var people: DatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         ref = Database.database().reference()
+        self.people = ref.child("people")
         
         ref.child("people").observe(DataEventType.value,with: {(snapshot) in
             var res = ""
@@ -32,9 +36,20 @@ class ViewController: UIViewController {
                     res += nm + "[" + ml + ":" + String(ag) + "]\n"
                 }
             }
-            self.data.text = res
         }) { (error) in
         print(error.localizedDescription)
     }
   }
+    @IBAction func doAction(_ sender: Any) {
+        
+        var nm:String? = self.name.text
+        var ml:String? = self.mail.text
+        var ag:Int? = Int(self.age.text ?? "0")
+        var data = [ "name":nm, "mail":ml, "age":ag ] as [String : Any]
+        var newRf = self.people.childByAutoId()
+        newRf.setValue(data)
+        self.name.text = ""
+        self.mail.text = ""
+        self.age.text = ""
+    }
 }
