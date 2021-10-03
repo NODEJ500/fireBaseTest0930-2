@@ -58,7 +58,7 @@
                     </view>
                     <connections>
                         <outlet property="age" destination="T5r-An-U3h" id="vtB-eQ-PPb"/>
-                        <outlet property="data" destination="0LL-64-ibO" id="6Og-tj-ee9"/>
+                        <outlet property="data" destination="0LL-64-ibO" id="VrN-8t-Gqc"/>
                         <outlet property="mail" destination="7Sg-A9-nWm" id="d81-KC-03S"/>
                         <outlet property="name" destination="ReL-lY-xfb" id="Ouv-8V-XDf"/>
                     </connections>
