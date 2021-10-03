@@ -15,36 +15,41 @@ class ViewController: UIViewController {
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var mail: UITextField!
     @IBOutlet weak var age: UITextField!
+    @IBOutlet weak var data: UITextView!
     
     var ref: DatabaseReference!
     var people: DatabaseReference!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         ref = Database.database().reference()
         self.people = ref.child("people")
-        
-        ref.child("people").observe(DataEventType.value,with: {(snapshot) in
-            var res = ""
-            if let values = snapshot.value as? NSArray {
-                for val in values {
-                    let ob:NSDictionary! = val as! NSDictionary
-                    let nm:String = ob.value(forKey: "name") as! String
-                    let ml:String = ob.value(forKey: "mail") as! String
-                    let ag:Int = ob.value(forKey: "age") as! Int
-                    res += nm + "[" + ml + ":" + String(ag) + "]\n"
-                }
-            }
-        }) { (error) in
-        print(error.localizedDescription)
     }
-  }
+    
     @IBAction func doAction(_ sender: Any) {
-        if let id:String = self.name.text {
-            let rf = self.people.child(id)
-            rf.removeValue()
-            self.name.text = ""
+        
+        self.name.endEditing(true)
+        if let fstr:String = self.name.text {
+        var fRef = people.queryOrdered(byChild: "name")
+                .queryStarting(atValue: fstr).queryEnding(atValue: fstr + "%")
+            fRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+                var res = ""
+                if let values = snapshot.value as? NSDictionary {
+                    for (key, val) in values {
+                        let ob:NSDictionary! = val as! NSDictionary
+                        let nm:String = ob.value(forKey: "name") as! String
+                        let ml:String = ob.value(forKey: "mail") as! String
+                        let ag:Int = ob.value(forKey: "age") as! Int
+                        res += nm + "[" + ml + ":" + String(ag) + "]\n"
+                    }
+                }
+                self.data.text = res
+            }) { (error) in
+                print(error.localizedDescription)
         }
-    }
+      }
+   }
 }
