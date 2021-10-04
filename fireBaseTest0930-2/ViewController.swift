@@ -27,14 +27,11 @@ class ViewController: UIViewController {
         
         self.db = Firestore.firestore()
         self.people = db.collection("people")
-        
         self.people.addSnapshotListener{( querySnapshot, err) in
             var res:String = ""
             for val in querySnapshot!.documents {
                 let nm:String = val.get("name") as! String
-                let ml:String = val.get("mail") as! String
-                let ag:Int = val.get("age") as! Int
-                res += nm + "[" + ml + ":" + String(ag) + "] \n"
+                res += nm + "[" + val.documentID + "] \n"
             }
             self.data.text = res
         }
@@ -49,17 +46,9 @@ class ViewController: UIViewController {
     
     
     @IBAction func doAction(_ sender: Any) {
-        
+        self.name.endEditing(true)
         let nm:String = self.name.text!
-        let ml:String = self.mail.text!
-        let ag:String = self.age.text!
-        
-        let data = [
-            "name":nm,
-            "mail":ml,
-            "age":ag
-        ] as [String : Any]
-        self.people.addDocument(data: data)
+        self.people.document(nm).delete()
     }
     
 }
