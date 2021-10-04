@@ -22,7 +22,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                 <connections>
-                                    <action selector="doAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NiZ-TI-L4L"/>
+                                    <action selector="doAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lfj-sa-Yjn"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ReL-lY-xfb">
