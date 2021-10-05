@@ -27,15 +27,8 @@ class ViewController: UIViewController {
         
         self.db = Firestore.firestore()
         self.people = db.collection("people")
-        self.people.addSnapshotListener{( querySnapshot, err) in
-            var res:String = ""
-            for val in querySnapshot!.documents {
-                let nm:String = val.get("name") as! String
-                res += nm + "[" + val.documentID + "] \n"
-            }
-            self.data.text = res
+       
         }
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -44,11 +37,21 @@ class ViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
     
-    
     @IBAction func doAction(_ sender: Any) {
+        print("ボタンが押されました")
         self.name.endEditing(true)
-        let nm:String = self.name.text!
-        self.people.document(nm).delete()
+        let fstr:String = self.name.text!
+        self.people.whereField("name" , isEqualTo:fstr)
+            .getDocuments() {(querySnapshot, er) in
+            var result:String = ""
+            for val in querySnapshot!.documents{
+                let nm:String = val.get("name") as! String
+                let ml:String = val.get("mail") as! String
+                let ag:String = String(val.get("age") as! Int)
+                result += nm + "[" + ml + ":" + ag  + "] \n"
+            }
+            print(result)
+            self.data.text = result
+        }
     }
-    
 }
