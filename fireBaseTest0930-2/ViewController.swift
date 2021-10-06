@@ -29,12 +29,18 @@ class ViewController: UIViewController {
         let storage = Storage.storage()
         
         let txtRef = storage.reference(withPath: "sample.text")
-        let MAX_SIZE:Int64 = 1024 * 1024
-        txtRef.getData(maxSize: MAX_SIZE) { result, error in
-            self.data.text = String(data: result! , encoding: String.Encoding.utf8)
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!
+        let fileUrl = path.appendingPathComponent("sample.text")
+        txtRef.write(toFile:fileUrl) { url, error in
+            if let err = error {
+                self.data.text = err.localizedDescription
+            }else{
+                self.data.text = fileUrl.absoluteString
+            }
         }
+    }
        
-        }
+        
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
