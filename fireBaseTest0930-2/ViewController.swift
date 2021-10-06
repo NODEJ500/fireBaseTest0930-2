@@ -27,14 +27,25 @@ class ViewController: UIViewController {
     @IBAction func doAction(_ sender: Any) {
        
         let storage = Storage.storage()
-        let txtRef = storage.reference(withPath: "newfile.text")
-        let str = data.text  + ""
-        txtRef.putData(str.data(using: String.Encoding.utf8)!, metadata:nil) { metadata, error in
-            if let meta = metadata {
-               print("成功です！")
+        let txtRef = storage.reference(withPath: "new.text")
+        
+        txtRef.getMetadata() {metadata, error in
+            if let err = error{
+                self.data.text = err.localizedDescription
             }else{
-               print("失敗です！")
-         }
+                let formatter = DateFormatter()
+                formatter .locale = NSLocale(localeIdentifier: "ja_ JP") as Locale
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                
+                var res = "★ metadata ★\n"
+                res  += metadata!.name! + "\n"
+                res  += metadata!.path! + "\n"
+                res  += metadata!.contentType! + "\n"
+                res  += String(metadata!.size) + "\n"
+                res  += formatter.string(from: metadata!.timeCreated!) + "\n"
+                res  += formatter.string(from: metadata!.updated!)
+                self.data.text = res
+            }
         }
     }
 }
