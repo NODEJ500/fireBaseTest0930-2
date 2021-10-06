@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseFirestore
+import FirebaseStorage
 
 class ViewController: UIViewController {
 
@@ -25,8 +26,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.db = Firestore.firestore()
-        self.people = db.collection("people")
+        let storage = Storage.storage()
+        
+        let txtRef = storage.reference(withPath: "sample.text")
+        let MAX_SIZE:Int64 = 1024 * 1024
+        txtRef.getData(maxSize: MAX_SIZE) { result, error in
+            self.data.text = String(data: result! , encoding: String.Encoding.utf8)
+        }
        
         }
     
@@ -38,20 +44,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func doAction(_ sender: Any) {
-        print("ボタンが押されました")
-        self.name.endEditing(true)
-        let fstr:String = self.name.text!
-        self.people.whereField("name" , isEqualTo:fstr)
-            .getDocuments() {(querySnapshot, er) in
-            var result:String = ""
-            for val in querySnapshot!.documents{
-                let nm:String = val.get("name") as! String
-                let ml:String = val.get("mail") as! String
-                let ag:String = String(val.get("age") as! Int)
-                result += nm + "[" + ml + ":" + ag  + "] \n"
-            }
-            print(result)
-            self.data.text = result
-        }
+       
+    
     }
 }
